@@ -24,3 +24,16 @@ body {
   height: 100px;
   width: 100px;
 }
+
+.warning {
+  animation: warning 0.3s;
+}
+
+@keyframes warning {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

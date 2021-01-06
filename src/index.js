@@ -18,8 +18,12 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   setTimeout(() => {
-    mainWindow.loadURL('https://accounts.google.com/signin/v2/identifier?service=classroom&passive=1209600&continue=https%3A%2F%2Fclassroom.google.com%2Fu%2F1%2Fh&followup=https%3A%2F%2Fclassroom.google.com%2Fu%2F1%2Fh&flowName=GlifWebSignIn&flowEntry=ServiceLogin');
+    mainWindow.loadFile(path.join(__dirname, 'warning.html'));
   }, 3000);
+  setTimeout(() => {
+    mainWindow.loadURL('https://classroom.google.com/signin/');
+  }, 8000);
+
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
