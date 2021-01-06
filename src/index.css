@@ -1,0 +1,26 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: auto;
+  max-width: 38rem;
+  padding: 2rem;
+  overflow: hidden;
+} 
+
+.custom-row {
+  position: relative; 
+  height: 100vh;
+  text-align: center;
+}
+
+.title {
+  margin: 0; 
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+}
