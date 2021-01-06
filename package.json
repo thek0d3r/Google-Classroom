@@ -1,6 +1,6 @@
 {
-  "name": "google classroom",
-  "productName": "google classroom",
+  "name": "google_classroom",
+  "productName": "google_classroom",
   "version": "1.0.0",
   "description": "Google Classroom app for Desktop",
   "main": "src/index.js",
@@ -20,13 +20,13 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "images/classroom.ico"
+        "icon": "./src/images/classroom.ico"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "google classroom"
+            "name": "google_classroom"
           }
         },
         {
@@ -37,11 +37,15 @@
         },
         {
           "name": "@electron-forge/maker-deb",
-          "config": {}
+          "config": {
+            "name": "google_classroom"
+          }
         },
         {
           "name": "@electron-forge/maker-rpm",
-          "config": {}
+          "config": {
+            "name": "google_classroom"
+          }
         }
       ]
     }
