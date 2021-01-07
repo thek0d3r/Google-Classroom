@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -6,33 +6,60 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
+let checkConnectionWindow;
+var ConnStatus;
+
+app.whenReady().then(() => {
+  checkConnectionWindow = new BrowserWindow({ width: 0, height: 0, show: false, webPreferences: { nodeIntegration: true } });
+  checkConnectionWindow.loadFile(path.join(__dirname, 'checkConnection.html'));
+});
+
+ipcMain.on('update-online-connection', (event, status) => {
+  ConnStatus = status;
+  console.log(ConnStatus);
+});
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true
+    },
     icon: path.join(__dirname, 'images/classroom.ico')
   });
 
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
-  setTimeout(() => {
-    mainWindow.loadFile(path.join(__dirname, 'warning.html'));
-  }, 3000);
-  setTimeout(() => {
-    mainWindow.loadURL('https://classroom.google.com/signin/');
-  }, 8000);
+  if (ConnStatus === 'online') {
+    // and load the index.html of the app.
+    mainWindow.loadFile(path.join(__dirname, 'index.html'));
+    setTimeout(() => {
+      mainWindow.loadFile(path.join(__dirname, 'warning.html'));
+    }, 3000);
+    setTimeout(() => {
+      mainWindow.loadURL('https://classroom.google.com/signin/');
+    }, 8000);
+  } else {
+    mainWindow.loadFile(path.join(__dirname, 'offline.html'));
+    // setTimeout(() => { app.relaunch() }, 30000);
+  }
+  checkConnectionWindow.destroy();
+}
 
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
-};
+// Open the DevTools.
+// mainWindow.webContents.openDevTools();
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+// Some APIs can only be used after this event occurs;
+
+app.on('ready', () => {
+  setTimeout(() => {
+    createWindow();
+  }, 1000);
+})
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

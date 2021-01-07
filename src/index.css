@@ -26,10 +26,14 @@ body {
 }
 
 .warning {
-  animation: warning 0.3s;
+  animation: fade-in-animation 0.3s ease-in;
 }
 
-@keyframes warning {
+.offline {
+  animation: fade-in-animation 0.3s ease-in;
+}
+
+@keyframes fade-in-animation {
   0% {
     opacity: 0;
   }
