@@ -1,7 +1,8 @@
 {
-  "name": "google_classroom",
-  "productName": "google_classroom",
+  "name": "Google Classroom",
+  "productName": "Google Classroom",
   "version": "1.0.0",
+  "publisher": "FlameFury20",
   "description": "Google Classroom app for Desktop",
   "main": "src/index.js",
   "scripts": {
@@ -26,7 +27,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "google_classroom"
+            "name": "Google Classroom"
           }
         },
         {
@@ -38,19 +39,22 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "name": "google_classroom"
+            "name": "Google Classroom"
           }
         },
         {
           "name": "@electron-forge/maker-rpm",
           "config": {
-            "name": "google_classroom"
+            "name": "Google Classroom"
           }
         }
       ]
     }
   },
   "dependencies": {
+    "custom-electron-titlebar": "^3.2.5",
+    "dotenv": "^8.2.0",
+    "electron-extensions": "^7.0.0-beta.3",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
