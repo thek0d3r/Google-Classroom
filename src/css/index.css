@@ -12,11 +12,22 @@ body {
   text-align: center;
 }
 
-.title {
-  margin: 0; 
+.custom-align {
+  margin: 0;
+  padding: 0; 
   position: absolute; 
   top: 50%; 
   transform: translateY(-50%);
+}
+
+.custom-align-left {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.title {
   font-family: 'Open Sans', sans-serif;
 }
 
