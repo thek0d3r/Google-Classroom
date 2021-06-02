@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, globalShortcut } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, Tray } = require('electron');
 const path = require('path');
 const os = require('os');
 
@@ -12,7 +12,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 // Check for internet connection;
 
 let checkConnectionWindow;
-var ConnStatus;
+var ConnStatus = "online";
 
 app.whenReady().then(() => {
   checkConnectionWindow = new BrowserWindow({ width: 0, height: 0, show: false, webPreferences: { nodeIntegration: true } });
@@ -94,13 +94,7 @@ const createWindow = () => {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
-  mainWindow.setThumbarButtons([
-    {
-      tooltip: "Button 1",
-      icon: "./src/images/classroom.ico",
-      click() { showNotification("Google Classroom", "Thumbnail Button Pressed") }
-    }
-  ]);
+
 
   // Load in the menu bar
 
@@ -115,10 +109,36 @@ const createWindow = () => {
     }, 3000);
     setTimeout(() => {
       mainWindow.loadURL('https://classroom.google.com/signin/');
+      mainWindow.setThumbarButtons([
+        {
+          tooltip: "Classes",
+          icon: path.join(__dirname, 'images/Classes.ico'),
+          click() {
+            mainWindow.loadURL('https://classroom.google.com/u/1/h');
+          }
+        },
+        {
+          tooltip: "To Do",
+          icon: path.join(__dirname, 'images/ToDo.ico'),
+          click() {
+            mainWindow.loadURL('https://classroom.google.com/u/1/a/not-turned-in/all');
+          }
+        },
+        {
+          tooltip: "Calendar",
+          icon: path.join(__dirname, 'images/Calendar.ico'),
+          click() {
+            mainWindow.loadURL('https://classroom.google.com/u/1/calendar/this-week/course/all');
+          }
+        }
+      ]);
     }, 8000);
   } else {
     mainWindow.loadFile(path.join(__dirname, 'html/offline.html')).then(() => { showNotification("Offline", "You are offline. Check your internet connection!"); });
-    setTimeout(() => { app.relaunch() }, 30000);
+    setTimeout(() => {
+      app.relaunch();
+      app.quit();
+    }, 10000);
   }
   checkConnectionWindow.destroy();
 }
@@ -155,7 +175,7 @@ app.on('activate', () => {
 
 function showNotification(title, body) {
   const notification = {
-    icon: "./src/images/classroom.ico",
+    icon: path.join(__dirname, "images/classroom.ico"),
     title: title,
     body: body
   }
