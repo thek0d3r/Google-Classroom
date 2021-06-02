@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, Tray } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme } = require('electron');
 const path = require('path');
 const os = require('os');
 
