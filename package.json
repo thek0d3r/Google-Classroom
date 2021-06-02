@@ -1,5 +1,5 @@
 {
-  "name": "Google Classroom",
+  "name": "google_classroom",
   "productName": "Google Classroom",
   "version": "1.0.0",
   "publisher": "FlameFury20",
@@ -27,7 +27,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Google Classroom"
+            "name": "Google_Classroom"
           }
         },
         {
@@ -39,13 +39,13 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "name": "Google Classroom"
+            "name": "Google_Classroom"
           }
         },
         {
           "name": "@electron-forge/maker-rpm",
           "config": {
-            "name": "Google Classroom"
+            "name": "Google_Classroom"
           }
         }
       ]
