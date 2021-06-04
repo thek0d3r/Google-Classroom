@@ -1,11 +1,11 @@
-const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, nativeImage } = require('electron');
-const path = require('path');
-const os = require('os');
+const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, nativeImage } = require("electron");
+const path = require("path");
+const os = require("os");
 
-app.setAppUserModelId('Google Classroom');
+app.setAppUserModelId("Google Classroom");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+if (require("electron-squirrel-startup")) { // eslint-disable-line global-require
   app.quit();
 }
 
@@ -16,17 +16,17 @@ var ConnStatus;
 
 app.whenReady().then(() => {
   checkConnectionWindow = new BrowserWindow({ width: 0, height: 0, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
-  checkConnectionWindow.loadFile(path.join(__dirname, 'html/checkConnection.html'));
+  checkConnectionWindow.loadFile(path.join(__dirname, "html/checkConnection.html"));
 });
 
-ipcMain.on('update-online-connection', (event, status) => {
+ipcMain.on("update-online-connection", (event, status) => {
   ConnStatus = status;
   console.log(ConnStatus);
 });
 
 // Menu Bar
 
-const isMac = process.platform === 'darwin';
+const isMac = process.platform === "darwin";
 const MenuTemplate = [
   ...(isMac ? [{
     label: app.name,
@@ -34,29 +34,29 @@ const MenuTemplate = [
   {
     label: app.name,
     submenu: [
-      { role: 'minimize' },
-      { role: 'togglefullscreen' },
-      isMac ? { role: 'close' } : { role: 'quit' }
+      { role: "minimize" },
+      { role: "togglefullscreen" },
+      isMac ? { role: "close" } : { role: "quit" }
     ]
   },
   {
     label: "Edit",
     submenu: [
-      { role: 'undo' },
-      { role: 'redo' },
-      { type: 'separator' },
-      { role: 'cut' },
-      { role: 'copy' },
-      { role: 'paste' },
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
+      { role: "cut" },
+      { role: "copy" },
+      { role: "paste" },
       ...(isMac ? [
-        { role: 'pasteAndMatchStyle' },
-        { role: 'delete' },
-        { role: 'selectAll' },
-        { type: 'separator' }
+        { role: "pasteAndMatchStyle" },
+        { role: "delete" },
+        { role: "selectAll" },
+        { type: "separator" }
       ] : [
-        { role: 'delete' },
-        { type: 'separator' },
-        { role: 'selectAll' }
+          { role: "delete" },
+          { type: "separator" },
+          { role: "selectAll" }
       ])
     ]
   },
@@ -66,8 +66,8 @@ const MenuTemplate = [
       {
         label: "Info",
         click: async () => {
-          const { shell } = require('electron');
-          await shell.openExternal('https://google.com/');
+          const { shell } = require("electron");
+          await shell.openExternal("https://google.com/");
         }
       },
     ]
@@ -78,7 +78,7 @@ const MenuTemplate = [
 
 const createWindow = () => {
   // Create the browser window.
-  nativeTheme.themeSource = 'light';
+  nativeTheme.themeSource = "light";
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -88,10 +88,10 @@ const createWindow = () => {
       enableRemoteModule: true,
       contextIsolation: true
     },
-    icon: nativeImage.createFromPath(path.join(__dirname, 'images/classroom.png'))
+    icon: nativeImage.createFromPath(path.join(__dirname, "images/classroom.png"))
   });
 
-  mainWindow.once('ready-to-show', () => {
+  mainWindow.once("ready-to-show", () => {
     mainWindow.show();
   });
 
@@ -101,40 +101,40 @@ const createWindow = () => {
   const menu = Menu.buildFromTemplate(MenuTemplate);
   Menu.setApplicationMenu(menu);
 
-  if (ConnStatus === 'online') {
+  if (ConnStatus === "online") {
     // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, 'html/index.html'));
+    mainWindow.loadFile(path.join(__dirname, "html/index.html"));
     setTimeout(() => {
-      mainWindow.loadFile(path.join(__dirname, 'html/warning.html'));
+      mainWindow.loadFile(path.join(__dirname, "html/warning.html"));
     }, 3000);
     setTimeout(() => {
-      mainWindow.loadURL('https://classroom.google.com/signin/');
+      mainWindow.loadURL("https://classroom.google.com/signin/");
       mainWindow.setThumbarButtons([
         {
           tooltip: "Classes",
-          icon: nativeImage.createFromPath(path.join(__dirname, 'images/Classes.png')),
+          icon: nativeImage.createFromPath(path.join(__dirname, "images/Classes.png")),
           click() {
-            mainWindow.loadURL('https://classroom.google.com/u/1/h');
+            mainWindow.loadURL("https://classroom.google.com/u/1/h");
           }
         },
         {
           tooltip: "To Do",
-          icon: nativeImage.createFromPath(path.join(__dirname, 'images/ToDo.png')),
+          icon: nativeImage.createFromPath(path.join(__dirname, "images/ToDo.png")),
           click() {
-            mainWindow.loadURL('https://classroom.google.com/u/1/a/not-turned-in/all');
+            mainWindow.loadURL("https://classroom.google.com/u/1/a/not-turned-in/all");
           }
         },
         {
           tooltip: "Calendar",
-          icon: nativeImage.createFromPath(path.join(__dirname, 'images/Calendar.png')),
+          icon: nativeImage.createFromPath(path.join(__dirname, "images/Calendar.png")),
           click() {
-            mainWindow.loadURL('https://classroom.google.com/u/1/calendar/this-week/course/all');
+            mainWindow.loadURL("https://classroom.google.com/u/1/calendar/this-week/course/all");
           }
         }
       ]);
     }, 8000);
   } else {
-    mainWindow.loadFile(path.join(__dirname, 'html/offline.html')).then(() => { showNotification("Offline", "You are offline. Check your internet connection!"); });
+    mainWindow.loadFile(path.join(__dirname, "html/offline.html")).then(() => { showNotification("Offline", "You are offline. Check your internet connection!"); });
     setTimeout(() => {
       app.relaunch();
       app.quit();
@@ -147,35 +147,35 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs;
 
-app.on('ready', () => {
+app.on("ready", () => {
   setTimeout(() => {
     createWindow();
   }, 1000);
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
+// Quit when all windows are closed, except on macOS. There, it"s common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
+app.on("activate", () => {
+  // On OS X it"s common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-// In this file you can include the rest of your app's specific main process
+// In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and import them here.
 
 function showNotification(title, body) {
   const notification = {
-    icon: nativeImage.createFromPath(path.join(__dirname, "images/classroom.png")),
+    icon: path.join(__dirname, "images/classroom.ico"),
     title: title,
     body: body
   }
