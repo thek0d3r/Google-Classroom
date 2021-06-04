@@ -9,6 +9,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "make-linux": "electron-forge make --platform linux --targets deb",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
@@ -27,7 +28,8 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Google_Classroom"
+            "name": "Google_Classroom",
+            "icon": "./src/images/classroom.ico"
           }
         },
         {
@@ -39,7 +41,8 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "name": "Google_Classroom"
+            "name": "Google_Classroom",
+            "icon": "./src/images/classroom.png"
           }
         },
         {

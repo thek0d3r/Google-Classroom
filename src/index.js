@@ -63,10 +63,10 @@ const MenuTemplate = [
     label: "Help",
     submenu: [
       {
-        label: "Info",
+        label: "Help",
         click: async () => {
           const { shell } = require("electron");
-          await shell.openExternal("https://google.com/");
+          await shell.openExternal("https://support.google.com/edu/classroom/?hl=en#topic=10298088");
         }
       },
     ]
@@ -139,7 +139,7 @@ const createWindow = () => {
       app.quit();
     }, 10000);
   }
-  checkConnectionWindow.destroy();
+  checkConnectionWindow.destroy(); // destroy the internet connection checker window
 }
 
 // This method will be called when Electron has finished
