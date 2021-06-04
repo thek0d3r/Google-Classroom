@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, nativeImage } = require("electron");
 const path = require("path");
-const os = require("os");
 
 app.setAppUserModelId("Google Classroom");
 
