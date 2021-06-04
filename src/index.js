@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, Notification, nativeTheme, nativeImage } = require('electron');
 const path = require('path');
 const os = require('os');
 
@@ -12,10 +12,10 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 // Check for internet connection;
 
 let checkConnectionWindow;
-var ConnStatus = "online";
+var ConnStatus;
 
 app.whenReady().then(() => {
-  checkConnectionWindow = new BrowserWindow({ width: 0, height: 0, show: false, webPreferences: { nodeIntegration: true } });
+  checkConnectionWindow = new BrowserWindow({ width: 0, height: 0, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
   checkConnectionWindow.loadFile(path.join(__dirname, 'html/checkConnection.html'));
 });
 
@@ -88,7 +88,7 @@ const createWindow = () => {
       enableRemoteModule: true,
       contextIsolation: true
     },
-    icon: path.join(__dirname, 'images/classroom.ico')
+    icon: nativeImage.createFromPath(path.join(__dirname, 'images/classroom.png'))
   });
 
   mainWindow.once('ready-to-show', () => {
@@ -112,21 +112,21 @@ const createWindow = () => {
       mainWindow.setThumbarButtons([
         {
           tooltip: "Classes",
-          icon: path.join(__dirname, 'images/Classes.ico'),
+          icon: nativeImage.createFromPath(path.join(__dirname, 'images/Classes.png')),
           click() {
             mainWindow.loadURL('https://classroom.google.com/u/1/h');
           }
         },
         {
           tooltip: "To Do",
-          icon: path.join(__dirname, 'images/ToDo.ico'),
+          icon: nativeImage.createFromPath(path.join(__dirname, 'images/ToDo.png')),
           click() {
             mainWindow.loadURL('https://classroom.google.com/u/1/a/not-turned-in/all');
           }
         },
         {
           tooltip: "Calendar",
-          icon: path.join(__dirname, 'images/Calendar.ico'),
+          icon: nativeImage.createFromPath(path.join(__dirname, 'images/Calendar.png')),
           click() {
             mainWindow.loadURL('https://classroom.google.com/u/1/calendar/this-week/course/all');
           }
@@ -175,7 +175,7 @@ app.on('activate', () => {
 
 function showNotification(title, body) {
   const notification = {
-    icon: path.join(__dirname, "images/classroom.ico"),
+    icon: nativeImage.createFromPath(path.join(__dirname, "images/classroom.png")),
     title: title,
     body: body
   }
