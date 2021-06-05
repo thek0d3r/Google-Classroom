@@ -28,8 +28,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Google_Classroom",
-            "icon": "./src/images/classroom.ico"
+            "name": "Google_Classroom"
           }
         },
         {
@@ -41,8 +40,7 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "name": "Google_Classroom",
-            "icon": "./src/images/classroom.png"
+            "name": "Google_Classroom"
           }
         },
         {
