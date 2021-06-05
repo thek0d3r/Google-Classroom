@@ -87,7 +87,7 @@ const createWindow = () => {
       enableRemoteModule: true,
       contextIsolation: true
     },
-    icon: nativeImage.createFromPath(path.join(__dirname, "images/classroom.ico"))
+    icon: path.join(__dirname, "images/classroom.ico")
   });
 
   mainWindow.once("ready-to-show", () => {
