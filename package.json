@@ -40,13 +40,13 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "name": "Google_Classroom"
+            "name": "Google Classroom"
           }
         },
         {
           "name": "@electron-forge/maker-rpm",
           "config": {
-            "name": "Google_Classroom"
+            "name": "Google Classroom"
           }
         }
       ],
@@ -64,7 +64,6 @@
     }
   },
   "dependencies": {
-    "custom-electron-titlebar": "^3.2.5",
     "dotenv": "^8.2.0",
     "electron-extensions": "^7.0.0-beta.3",
     "electron-squirrel-startup": "^1.0.0",
