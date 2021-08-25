@@ -11,16 +11,15 @@ if (require("electron-squirrel-startup")) { // eslint-disable-line global-requir
 // Check for internet connection;
 
 let checkConnectionWindow;
-var ConnStatus;
 
 app.whenReady().then(() => {
   checkConnectionWindow = new BrowserWindow({ width: 0, height: 0, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
   checkConnectionWindow.loadFile(path.join(__dirname, "html/checkConnection.html"));
 });
 
-ipcMain.on("update-online-connection", (event, status) => {
-  ConnStatus = status;
-  console.log(ConnStatus);
+ipcMain.on("update-online-connection", async (event, status) => {
+  createWindow(status);
+  checkConnectionWindow.destroy();
 });
 
 // Menu Bar
@@ -75,13 +74,14 @@ const MenuTemplate = [
 
 // Create the main window
 
-const createWindow = () => {
+const createWindow = (status) => {
   // Create the browser window.
   nativeTheme.themeSource = "light";
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     backgroundColor: "#fff",
+    titleBarStyle: "hidden",
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
@@ -100,12 +100,11 @@ const createWindow = () => {
   const menu = Menu.buildFromTemplate(MenuTemplate);
   Menu.setApplicationMenu(menu);
 
-  if (ConnStatus === "online") {
-    // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, "html/index.html"));
-    setTimeout(() => {
-      mainWindow.loadFile(path.join(__dirname, "html/warning.html"));
-    }, 3000);
+  if (status === "online") {
+    // and load the index.html of the app
+
+    mainWindow.loadFile(path.join(__dirname, "html/warning.html"));
+
     setTimeout(() => {
       mainWindow.loadURL("https://classroom.google.com/signin/");
       mainWindow.setThumbarButtons([
@@ -113,44 +112,43 @@ const createWindow = () => {
           tooltip: "Classes",
           icon: nativeImage.createFromPath(path.join(__dirname, "images/Classes.png")),
           click() {
-            mainWindow.loadURL("https://classroom.google.com/u/1/h");
+            mainWindow.loadURL("https://classroom.google.com/u/0/h");
           }
         },
         {
           tooltip: "To Do",
           icon: nativeImage.createFromPath(path.join(__dirname, "images/ToDo.png")),
           click() {
-            mainWindow.loadURL("https://classroom.google.com/u/1/a/not-turned-in/all");
+            mainWindow.loadURL("https://classroom.google.com/u/0/a/not-turned-in/all");
           }
         },
         {
           tooltip: "Calendar",
           icon: nativeImage.createFromPath(path.join(__dirname, "images/Calendar.png")),
           click() {
-            mainWindow.loadURL("https://classroom.google.com/u/1/calendar/this-week/course/all");
+            mainWindow.loadURL("https://classroom.google.com/u/0/calendar/this-week/course/all");
           }
         }
       ]);
-    }, 8000);
+    }, 5000);
   } else {
     mainWindow.loadFile(path.join(__dirname, "html/offline.html")).then(() => { showNotification("Offline", "You are offline. Check your internet connection!"); });
     setTimeout(() => {
       app.relaunch();
       app.quit();
     }, 10000);
-  }
-  checkConnectionWindow.destroy(); // destroy the internet connection checker window
+}
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs;
 
-app.on("ready", () => {
-  setTimeout(() => {
-    createWindow();
-  }, 1000);
-});
+// app.on("ready", () => {
+//   setTimeout(() => {
+//     createWindow();
+//   }, 1000);
+// });
 
 // Quit when all windows are closed, except on macOS. There, it"s common
 // for applications and their menu bar to stay active until the user quits
