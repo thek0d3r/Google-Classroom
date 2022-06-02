@@ -107,29 +107,59 @@ const createWindow = (status) => {
 
     setTimeout(() => {
       mainWindow.loadURL("https://classroom.google.com/signin/");
-      mainWindow.setThumbarButtons([
-        {
-          tooltip: "Classes",
-          icon: nativeImage.createFromPath(path.join(__dirname, "images/Classes.png")),
-          click() {
-            mainWindow.loadURL("https://classroom.google.com/u/0/h");
+      if(!isMac) {
+        mainWindow.setThumbarButtons([
+          {
+            tooltip: "Classes",
+            icon: nativeImage.createFromPath(path.join(__dirname, "images/Classes.png")),
+            click() {
+              mainWindow.loadURL("https://classroom.google.com/u/0/h");
+              mainWindow.show();
+            }
+          },
+          {
+            tooltip: "To Do",
+            icon: nativeImage.createFromPath(path.join(__dirname, "images/ToDo.png")),
+            click() {
+              mainWindow.loadURL("https://classroom.google.com/u/0/a/not-turned-in/all");
+              mainWindow.show();
+            }
+          },
+          {
+            tooltip: "Calendar",
+            icon: nativeImage.createFromPath(path.join(__dirname, "images/Calendar.png")),
+            click() {
+              mainWindow.loadURL("https://classroom.google.com/u/0/calendar/this-week/course/all");
+              mainWindow.show();
+            }
           }
-        },
-        {
-          tooltip: "To Do",
-          icon: nativeImage.createFromPath(path.join(__dirname, "images/ToDo.png")),
-          click() {
-            mainWindow.loadURL("https://classroom.google.com/u/0/a/not-turned-in/all");
+        ]);
+      } else {
+        app.dock.setMenu(Menu.buildFromTemplate([
+          {
+            label: "Classes",
+            click() {
+              mainWindow.loadURL("https://classroom.google.com/u/0/h");
+              mainWindow.show();
+            }
+          },
+          {
+            label: "To Do",
+            click() {
+              mainWindow.loadURL("https://classroom.google.com/u/0/a/not-turned-in/all");
+              mainWindow.show();
+            }
+          },
+          {
+            label: "Calendar",
+            click() {
+              mainWindow.loadURL("https://classroom.google.com/u/0/calendar/this-week/course/all");
+              mainWindow.show();
+            }
           }
-        },
-        {
-          tooltip: "Calendar",
-          icon: nativeImage.createFromPath(path.join(__dirname, "images/Calendar.png")),
-          click() {
-            mainWindow.loadURL("https://classroom.google.com/u/0/calendar/this-week/course/all");
-          }
-        }
-      ]);
+        ]))
+      }
+      
     }, 5000);
   } else {
     mainWindow.loadFile(path.join(__dirname, "html/offline.html")).then(() => { showNotification("Offline", "You are offline. Check your internet connection!"); });
