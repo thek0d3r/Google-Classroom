@@ -5,6 +5,7 @@
 1. Go to [Releases](https://github.com/FlameFury20/Google-Classroom/releases/) and download the latest version.
 2. Make sure that you have [Node.js](https://nodejs.org/en/) installed and configured.
 3. Open it in a command line and execute these commands:
+
     ```bash
         npm install
         npm run make
