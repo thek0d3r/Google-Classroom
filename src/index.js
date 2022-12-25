@@ -102,11 +102,7 @@ const createWindow = (status) => {
 
   if (status === "online") {
     // and load the index.html of the app
-
-    mainWindow.loadFile(path.join(__dirname, "html/warning.html"));
-
-    setTimeout(() => {
-      mainWindow.loadURL("https://classroom.google.com/signin/");
+    mainWindow.loadURL("https://classroom.google.com/signin/");
       if(!isMac) {
         mainWindow.setThumbarButtons([
           {
@@ -159,8 +155,6 @@ const createWindow = (status) => {
           }
         ]))
       }
-      
-    }, 5000);
   } else {
     mainWindow.loadFile(path.join(__dirname, "html/offline.html")).then(() => { showNotification("Offline", "You are offline. Check your internet connection!"); });
     setTimeout(() => {
