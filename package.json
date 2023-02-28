@@ -22,7 +22,8 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "./src/images/classroom.ico"
+        "icon": "./src/images/classroom.ico",
+        "asar": true
       },
       "makers": [
         {
