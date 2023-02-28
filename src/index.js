@@ -81,7 +81,6 @@ const createWindow = (status) => {
     width: 800,
     height: 600,
     backgroundColor: "#fff",
-    titleBarStyle: "hidden",
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,

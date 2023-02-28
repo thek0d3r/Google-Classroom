@@ -2,7 +2,7 @@
   "name": "google_classroom",
   "productName": "Google Classroom",
   "version": "1.0.0",
-  "publisher": "FlameFury20",
+  "publisher": "thek0der",
   "description": "Google Classroom app for Desktop",
   "main": "src/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
   },
   "keywords": [],
   "author": {
-    "name": "FlameFury20",
-    "email": "horjarazvan@gmail.com"
+    "name": "thek0der",
+    "email": "thek0der@protonmail.com"
   },
   "license": "MIT",
   "config": {
@@ -55,7 +55,7 @@
           "name": "@electron-forge/publisher-github",
           "config": {
             "repository": {
-              "owner": "FlameFury20",
+              "owner": "thek0der",
               "name": "Google Classroom"
             }
           }
